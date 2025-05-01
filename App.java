@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 public class App extends Application {
 
@@ -15,6 +16,7 @@ public class App extends Application {
         VBox root = new VBox(100);
         Scene scene = new Scene(root, 800, 650);
         Label title = new Label("Notes app!");
+        title.setFont(new Font("Arial", 24));
         HBox titleWrapper = new HBox();
         titleWrapper.getChildren().add(title);
         titleWrapper.setAlignment(Pos.CENTER);
