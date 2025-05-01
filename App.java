@@ -15,7 +15,10 @@ public class App extends Application {
         VBox root = new VBox(100);
         Scene scene = new Scene(root, 800, 650);
         Label title = new Label("Notes app!");
-        root.getChildren().add(title);
+        HBox titleWrapper = new HBox();
+        titleWrapper.getChildren().add(title);
+        titleWrapper.setAlignment(Pos.CENTER);
+        root.getChildren().add(titleWrapper);
 
         stage.setScene(scene);
 
