@@ -14,6 +14,8 @@ public class App extends Application {
     public void start(Stage stage) {
         VBox root = new VBox(100);
         Scene scene = new Scene(root, 800, 650);
+        Label title = new Label("Notes app!");
+        root.getChildren().add(title);
 
         stage.setScene(scene);
 
