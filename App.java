@@ -22,6 +22,17 @@ public class App extends Application {
         titleWrapper.setAlignment(Pos.CENTER);
         root.getChildren().add(titleWrapper);
 
+        ScrollPane listPane = new ScrollPane();
+        VBox listBox = new VBox(50);
+        TextField text = new TextField("");
+        Button addButton = new Button("Add notes to the list");
+        
+        root.getChildren().addAll(text, addButton);
+        listPane.setContent(listBox);
+        root.getChildren().addAll(listPane);
+
+        
+
         stage.setScene(scene);
 
         stage.show();
