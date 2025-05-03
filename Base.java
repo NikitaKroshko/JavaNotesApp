@@ -43,6 +43,12 @@ public class Base {
 
         Label titleLabel = new Label("Default Title");
         titleLabel.setFont(new Font(20));
+        titleLabel.setAlignment(Pos.CENTER);
+        VBox.setVgrow(titleLabel, Priority.ALWAYS);
+
+        VBox titleContainer = new VBox();
+        titleContainer.setAlignment(Pos.CENTER);
+        titleContainer.getChildren().add(titleLabel);
 
         Button changeTitleButton = new Button("Change Title");
         changeTitleButton.setOnAction(e -> {
@@ -69,7 +75,7 @@ public class Base {
         listPane.setContent(listBox);
         listPane.setFitToWidth(true);
 
-        root.getChildren().addAll(titleLabel, topBox, listPane);
+        root.getChildren().addAll(titleContainer, topBox, listPane);
 
         return root;
     }
