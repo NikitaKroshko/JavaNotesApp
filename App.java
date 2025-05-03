@@ -20,6 +20,7 @@ public class App extends Application {
         VBox listBox = new VBox(50);
         HBox labelWrapper = new HBox(20);
         Label label = new Label("Notes app!");
+        label.setFont(new Font("Ariel", 20));
         labelWrapper.getChildren().add(label);
         labelWrapper.setAlignment(Pos.CENTER);
         root.getChildren().add(labelWrapper);
