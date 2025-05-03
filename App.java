@@ -1,14 +1,14 @@
 import javafx.application.Application;
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
 
 public class App extends Application {
 
@@ -34,8 +34,8 @@ public class App extends Application {
         for (int i = 0; i < 10; i++) {
             pages[i] = Base.top();
 
-            Button pageButton = new Button("Pg " + i);
-            int index = i; 
+            Button pageButton = new Button("Pg " + (i + 1));
+            int index = i;
             pageButton.setOnAction(e -> {
                 contentWrapper.getChildren().setAll(pages[index]);
             });
@@ -54,5 +54,3 @@ public class App extends Application {
         launch(args);
     }
 }
-
-
