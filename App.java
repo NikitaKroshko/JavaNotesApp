@@ -13,30 +13,49 @@ import javafx.scene.text.Font;
 public class App extends Application {
 
     public void start(Stage stage) {
-        VBox root = new VBox(100);
+                VBox root = new VBox(100);
         Scene scene = new Scene(root, 800, 650);
-        Label title = new Label("Notes app!");
-        title.setFont(new Font("Arial", 24));
-        HBox titleWrapper = new HBox();
-        titleWrapper.getChildren().add(title);
-        titleWrapper.setAlignment(Pos.CENTER);
-        root.getChildren().add(titleWrapper);
-
+        HBox topBox = new HBox(50);
         ScrollPane listPane = new ScrollPane();
         VBox listBox = new VBox(50);
-        TextField text = new TextField("");
-        Button addButton = new Button("Add notes to the list");
+        HBox labelWrapper = new HBox(20);
+        Label label = new Label("Notes app!");
+        labelWrapper.getChildren().add(label);
+        labelWrapper.setAlignment(Pos.CENTER);
+        root.getChildren().add(labelWrapper);
         
-        root.getChildren().addAll(text, addButton);
-        listPane.setContent(listBox);
-        root.getChildren().addAll(listPane);
 
-        
+        TextField text = new TextField("");
+        Button addButton = new Button("Add note to list");
+        addButton.setOnAction(e -> {
+            String userText = text.getCharacters().toString();
+            if (!userText.isEmpty()) {
+                HBox innerBox = new HBox(10);
+                Label innerText = new Label(userText);
+                Button deleteButton = new Button("X");
+                deleteButton.setOnAction(er -> {
+                    listBox.getChildren().remove(innerBox);
+                });
+                innerBox.getChildren().addAll(innerText, deleteButton);
+                text.clear();
+
+                listBox.getChildren().addFirst(innerBox);
+                listPane.layout();
+                listPane.setVvalue(0);
+            }
+        });
+
+        topBox.setAlignment(Pos.CENTER);
+
+        topBox.getChildren().addAll(text, addButton);
+
+        listPane.setContent(listBox);
+
+        root.getChildren().addAll(topBox, listPane);
 
         stage.setScene(scene);
 
-        stage.show();
-    }
+        stage.show();    }
 
     public static void main(String[] args) {
         launch(args);
