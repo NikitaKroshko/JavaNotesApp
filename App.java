@@ -3,6 +3,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -20,9 +21,16 @@ public class App extends Application {
         labelWrapper.setAlignment(Pos.CENTER);
         root.getChildren().add(labelWrapper);
 
+        ScrollPane navBarScrollPane = new ScrollPane();
+        navBarScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        navBarScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        navBarScrollPane.setFitToHeight(true);
+        navBarScrollPane.setFitToWidth(false);
+
         HBox navBar = new HBox(10);
         navBar.setAlignment(Pos.CENTER);
-        root.getChildren().add(navBar);
+        navBarScrollPane.setContent(navBar);
+        root.getChildren().add(navBarScrollPane);
 
         VBox contentWrapper = new VBox();
         root.getChildren().add(contentWrapper);
@@ -30,7 +38,7 @@ public class App extends Application {
         VBox firstPage = Base.top();
         contentWrapper.getChildren().add(firstPage);
 
-        Button addPageButton = new Button("Add Page");
+        Button addPageButton = new Button("+");
         navBar.getChildren().add(addPageButton);
 
         addPageButton.setOnAction(e -> {
