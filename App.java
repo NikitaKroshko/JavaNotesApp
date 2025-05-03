@@ -38,18 +38,28 @@ public class App extends Application {
         VBox firstPage = Base.top();
         contentWrapper.getChildren().add(firstPage);
 
+        Button firstPageButton = new Button("Pg 1");
+        firstPageButton.setOnAction(event ->
+            contentWrapper.getChildren().setAll(firstPage)
+        );
+        navBar.getChildren().add(firstPageButton);
+
         Button addPageButton = new Button("+");
-        navBar.getChildren().add(addPageButton);
+        navBar.getChildren().add(1, addPageButton);
 
         addPageButton.setOnAction(e -> {
             VBox newPage = Base.top();
             Button pageButton = new Button(
                 "Pg " + (navBar.getChildren().size())
             );
-            pageButton.setOnAction(event ->
-                contentWrapper.getChildren().setAll(newPage)
-            );
-            navBar.getChildren().add(pageButton);
+            pageButton.setOnAction(event -> {
+                if (!contentWrapper.getChildren().contains(newPage)) {
+                    contentWrapper.getChildren().setAll(newPage);
+                }
+            });
+            navBar
+                .getChildren()
+                .add(navBar.getChildren().size() - 1, pageButton);
         });
 
         stage.setScene(scene);
