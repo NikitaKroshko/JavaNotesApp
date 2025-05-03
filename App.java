@@ -1,9 +1,6 @@
 import javafx.application.Application;
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -30,20 +27,22 @@ public class App extends Application {
         VBox contentWrapper = new VBox();
         root.getChildren().add(contentWrapper);
 
-        VBox[] pages = new VBox[10];
-        for (int i = 0; i < 10; i++) {
-            pages[i] = Base.top();
+        VBox firstPage = Base.top();
+        contentWrapper.getChildren().add(firstPage);
 
-            Button pageButton = new Button("Pg " + (i + 1));
-            int index = i;
-            pageButton.setOnAction(e -> {
-                contentWrapper.getChildren().setAll(pages[index]);
-            });
+        Button addPageButton = new Button("Add Page");
+        navBar.getChildren().add(addPageButton);
 
+        addPageButton.setOnAction(e -> {
+            VBox newPage = Base.top();
+            Button pageButton = new Button(
+                "Pg " + (navBar.getChildren().size())
+            );
+            pageButton.setOnAction(event ->
+                contentWrapper.getChildren().setAll(newPage)
+            );
             navBar.getChildren().add(pageButton);
-        }
-
-        contentWrapper.getChildren().add(pages[0]);
+        });
 
         stage.setScene(scene);
         stage.setTitle("Notes App");
