@@ -77,9 +77,20 @@ public class Base {
         Button saveButton = new Button("Save Notes");
         saveButton.setOnAction(e -> saveNotesToFile(listBox));
 
+        Button uploadButton = new Button("Upload Notes");
+        uploadButton.setOnAction(e -> {
+            System.out.println("upload btn");
+        });
+
         topBox
             .getChildren()
-            .addAll(text, addButton, changeTitleButton, saveButton);
+            .addAll(
+                text,
+                addButton,
+                changeTitleButton,
+                saveButton,
+                uploadButton
+            );
         listPane.setContent(listBox);
         listPane.setFitToWidth(true);
 
