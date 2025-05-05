@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -64,6 +67,23 @@ public class App extends Application {
 
         Button saveButton = new Button("Save");
         navBar.getChildren().add(saveButton);
+
+        saveButton.setOnAction(e -> {
+            StringBuilder content = new StringBuilder();
+            for (int i = 0; i < navBar.getChildren().size() - 2; i++) {
+                Button pageButton = (Button) navBar.getChildren().get(i);
+                content.append(pageButton.getText()).append("\n");
+            }
+            try (
+                BufferedWriter writer = new BufferedWriter(
+                    new FileWriter("notes.jtxt")
+                )
+            ) {
+                writer.write(content.toString());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         stage.setScene(scene);
         stage.setTitle("Notes App");
