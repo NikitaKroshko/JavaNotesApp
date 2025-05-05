@@ -1,5 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,6 +38,7 @@ public class Base {
                 );
                 innerBox.getChildren().addAll(innerText, deleteButton);
                 listBox.getChildren().add(0, innerBox);
+                saveNotesToFile(listBox);
                 text.clear();
                 listPane.setVvalue(0);
             }
@@ -78,5 +81,27 @@ public class Base {
         root.getChildren().addAll(titleContainer, topBox, listPane);
 
         return root;
+    }
+
+    private static void saveNotesToFile(VBox listBox) {
+        try (
+            BufferedWriter writer = new BufferedWriter(
+                new FileWriter("jnotes.txt")
+            )
+        ) {
+            for (var node : listBox.getChildren()) {
+                if (node instanceof HBox) {
+                    HBox hBox = (HBox) node;
+                    for (var innerNode : hBox.getChildren()) {
+                        if (innerNode instanceof Label) {
+                            writer.write(((Label) innerNode).getText());
+                            writer.newLine();
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
