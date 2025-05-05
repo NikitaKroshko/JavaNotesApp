@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -12,11 +13,13 @@ public class App extends Application {
 
     public void start(Stage stage) {
         VBox root = new VBox(30);
+        root.setStyle("-fx-background-color: #e6f7ff;");
         Scene scene = new Scene(root, 800, 650);
 
         HBox labelWrapper = new HBox();
         Label label = new Label("Notes app!");
         label.setFont(new Font("Arial", 24));
+        label.setTextFill(Color.web("#005f99"));
         labelWrapper.getChildren().add(label);
         labelWrapper.setAlignment(Pos.CENTER);
         root.getChildren().add(labelWrapper);
@@ -29,6 +32,7 @@ public class App extends Application {
 
         HBox navBar = new HBox(10);
         navBar.setAlignment(Pos.CENTER);
+        navBar.setStyle("-fx-background-color: #b3e0ff;");
         navBarScrollPane.setContent(navBar);
         root.getChildren().add(navBarScrollPane);
 
@@ -39,18 +43,27 @@ public class App extends Application {
         contentWrapper.getChildren().add(firstPage);
 
         Button firstPageButton = new Button("Pg 1");
+        firstPageButton.setStyle(
+            "-fx-background-color: #99ccff; -fx-text-fill: #003d66;"
+        );
         firstPageButton.setOnAction(event ->
             contentWrapper.getChildren().setAll(firstPage)
         );
         navBar.getChildren().add(firstPageButton);
 
         Button addPageButton = new Button("+");
+        addPageButton.setStyle(
+            "-fx-background-color: #99ccff; -fx-text-fill: #003d66;"
+        );
         navBar.getChildren().add(1, addPageButton);
 
         addPageButton.setOnAction(e -> {
             VBox newPage = Base.top();
             Button pageButton = new Button(
                 "Pg " + (navBar.getChildren().size())
+            );
+            pageButton.setStyle(
+                "-fx-background-color: #99ccff; -fx-text-fill: #003d66;"
             );
             pageButton.setOnAction(event -> {
                 if (!contentWrapper.getChildren().contains(newPage)) {
