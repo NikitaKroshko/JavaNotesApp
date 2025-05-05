@@ -74,7 +74,12 @@ public class Base {
             titleStage.show();
         });
 
-        topBox.getChildren().addAll(text, addButton, changeTitleButton);
+        Button saveButton = new Button("Save Notes");
+        saveButton.setOnAction(e -> saveNotesToFile(listBox));
+
+        topBox
+            .getChildren()
+            .addAll(text, addButton, changeTitleButton, saveButton);
         listPane.setContent(listBox);
         listPane.setFitToWidth(true);
 
@@ -86,7 +91,7 @@ public class Base {
     private static void saveNotesToFile(VBox listBox) {
         try (
             BufferedWriter writer = new BufferedWriter(
-                new FileWriter("jnotes.txt")
+                new FileWriter("jnotes.jtxt")
             )
         ) {
             for (var node : listBox.getChildren()) {
