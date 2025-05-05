@@ -62,6 +62,9 @@ public class App extends Application {
                 .add(navBar.getChildren().size() - 1, pageButton);
         });
 
+        Button saveButton = new Button("Save");
+        navBar.getChildren().add(saveButton);
+
         stage.setScene(scene);
         stage.setTitle("Notes App");
         stage.show();
