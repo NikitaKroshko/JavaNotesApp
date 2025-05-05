@@ -1,13 +1,9 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -53,9 +49,6 @@ public class App extends Application {
 
         addPageButton.setOnAction(e -> {
             VBox newPage = Base.top();
-            TextArea textArea = new TextArea();
-            textArea.setPromptText("Enter your notes here...");
-            newPage.getChildren().add(textArea);
             Button pageButton = new Button(
                 "Pg " + (navBar.getChildren().size())
             );
@@ -67,36 +60,6 @@ public class App extends Application {
             navBar
                 .getChildren()
                 .add(navBar.getChildren().size() - 1, pageButton);
-        });
-
-        Button saveButton = new Button("Save");
-        navBar.getChildren().add(saveButton);
-
-        saveButton.setOnAction(e -> {
-            StringBuilder content = new StringBuilder();
-            for (int i = 0; i < contentWrapper.getChildren().size(); i++) {
-                VBox page = (VBox) contentWrapper.getChildren().get(i);
-                page
-                    .getChildren()
-                    .forEach(node -> {
-                        if (node instanceof TextArea) {
-                            content
-                                .append("- ")
-                                .append(((TextArea) node).getText())
-                                .append("\n");
-                        }
-                    });
-                content.append("---\n");
-            }
-            try (
-                BufferedWriter writer = new BufferedWriter(
-                    new FileWriter("notes.jtxt")
-                )
-            ) {
-                writer.write(content.toString());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
         });
 
         stage.setScene(scene);
