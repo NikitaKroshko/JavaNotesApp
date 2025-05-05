@@ -1,7 +1,9 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import javafx.application.Application;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,6 +12,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Base {
@@ -79,7 +82,33 @@ public class Base {
 
         Button uploadButton = new Button("Upload Notes");
         uploadButton.setOnAction(e -> {
-            System.out.println("upload btn");
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Notes File");
+            fileChooser
+                .getExtensionFilters()
+                .add(new FileChooser.ExtensionFilter("Text Files", "*.jtxt"));
+            Stage stage = (Stage) root.getScene().getWindow();
+            var file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                try {
+                    List<String> lines = Files.readAllLines(
+                        Paths.get(file.toURI())
+                    );
+                    listBox.getChildren().clear();
+                    for (String line : lines) {
+                        HBox innerBox = new HBox(10);
+                        Label innerText = new Label(line);
+                        Button deleteButton = new Button("X");
+                        deleteButton.setOnAction(er ->
+                            listBox.getChildren().remove(innerBox)
+                        );
+                        innerBox.getChildren().addAll(innerText, deleteButton);
+                        listBox.getChildren().add(0, innerBox);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
         });
 
         topBox
