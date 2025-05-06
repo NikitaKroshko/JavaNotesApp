@@ -3,6 +3,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -133,10 +135,12 @@ public class Base {
     }
 
     private static void saveNotesToFile(VBox listBox) {
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(
+            new Date()
+        );
+        String fileName = "jnotes_" + timestamp + ".jtxt";
         try (
-            BufferedWriter writer = new BufferedWriter(
-                new FileWriter("jnotes.jtxt")
-            )
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))
         ) {
             for (var node : listBox.getChildren()) {
                 if (node instanceof HBox) {
